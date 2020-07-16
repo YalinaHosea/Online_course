@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_course/screens/home_screens.dart';
+import 'package:online_course/screens/login_sreens.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       title: 'Course App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: HomeScreen(),
+      home: LoginScreen(),
     );
   }
 }

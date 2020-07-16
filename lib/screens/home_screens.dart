@@ -18,13 +18,15 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 SvgPicture.asset("assets/icons/menu.svg"),
-                Image.asset("assets/images/user.png"),
+                CircleAvatar(
+                  backgroundImage: AssetImage("assets/images/user.png"),
+                )
               ],
             ),
             SizedBox(
               height: 30,
             ),
-            Text("Hey OniCHan", style: kHeadingxSTyle),
+            Text("Hi Yalina Hosea", style: kHeadingxSTyle),
             Text("Find a course you want to learn", style: kSubheadingextStyle),
             Container(
               margin: EdgeInsets.symmetric(vertical: 30),

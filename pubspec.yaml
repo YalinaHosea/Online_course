@@ -53,7 +53,8 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    
+    - assets/logos/facebook.jpg
+    - assets/logos/google.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -74,6 +75,9 @@ flutter:
           weight : 700
         - asset: assets/fonts/Nunito/Nunito-SemiBold.ttf
           weight : 600
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans.ttf
           
   #   - family: Trajan Pro
   #     fonts:
