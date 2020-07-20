@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_course/constants.dart';
 import 'package:online_course/models/category.dart';
-import 'package:online_course/screens/details_screens.dart';
+import 'package:online_course/screens/topik_screens.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -68,37 +68,64 @@ class HomeScreen extends StatelessWidget {
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20,
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => DetailsScreen())),
-                      child: Container(
-                        height: index.isEven ? 200 : 240,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          image: DecorationImage(
-                            image: AssetImage(categories[index].image),
-                            fit: BoxFit.fill,
+                    return Stack(
+                      children: <Widget>[
+                        ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                          child: ShaderMask(
+                            shaderCallback: (rect) {
+                              return LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [Colors.transparent, Colors.black],
+                              ).createShader(Rect.fromLTRB(
+                                  0, 30, rect.width, rect.height));
+                            },
+                            blendMode: BlendMode.darken,
+                            child: GestureDetector(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => TopikScreen(
+                                            category: categories[index],
+                                          ))),
+                              child: Container(
+                                height: index.isEven ? 200 : 240,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  image: DecorationImage(
+                                    image: AssetImage(categories[index].image),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                        Positioned(
+                          //hanya bisa ada di anak nya stack
+                          bottom: 15,
+                          left: 15,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
                                 categories[index].name,
-                                style: kTitleTextStyle,
+                                style: kTitleTextStyle.copyWith(
+                                    color: Colors.white),
                               ),
                               Text(
                                 categories[index].numOfCourses.toString() +
                                     ' Courses',
                                 style: kSubtitleTextStyle.copyWith(
-                                    fontSize: 15, fontWeight: FontWeight.w300),
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w300),
                               ),
                             ],
                           ),
                         ),
-                      ),
+                      ],
                     );
                   },
                   staggeredTileBuilder: (index) => StaggeredTile.fit(1)),
