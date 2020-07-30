@@ -60,31 +60,61 @@ var topikdata = [
   {
     "id_kategori": 3,
     "id_topik": 8,
-    "judul": "Umpan",
-    "image": "assets/images/umpan.jpg"
+    "judul": "Pemanenan",
+    "image": "assets/images/panen.jpg"
   },
   {
     "id_kategori": 3,
     "id_topik": 9,
-    "judul": "Memilih alat",
-    "image": "assets/images/alat.jpg"
+    "judul": "Perontokkan",
+    "image": "assets/images/perontokkan.jpg"
   },
   {
-    "id_kategori": 4,
+    "id_kategori": 3,
     "id_topik": 10,
-    "judul": "Membeli ternak",
-    "image": "assets/images/beliternak.jpg"
+    "judul": "Pengeringan",
+    "image": "assets/images/pengeringan.jpg"
   },
   {
-    "id_kategori": 4,
+    "id_kategori": 3,
     "id_topik": 11,
-    "judul": "Lahan",
-    "image": "assets/images/lahan.jpg"
+    "judul": "Penyimpanan",
+    "image": "assets/images/simpan.jpg"
+  },
+  {
+    "id_kategori": 3,
+    "id_topik": 12,
+    "judul": "Penggilingan",
+    "image": "assets/images/giling.jpg"
   },
   {
     "id_kategori": 4,
-    "id_topik": 12,
-    "judul": "Pangan",
-    "image": "assets/images/pangan.jpg"
+    "id_topik": 13,
+    "judul": "Teknik Mencangkok",
+    "image": "assets/images/teknikcangkok.jpg"
+  },
+  {
+    "id_kategori": 4,
+    "id_topik": 14,
+    "judul": "Syarat Mencangkok",
+    "image": "assets/images/syaratcangkok.jpg"
+  },
+  {
+    "id_kategori": 4,
+    "id_topik": 15,
+    "judul": "Langkah Mencangkok",
+    "image": "assets/images/langkahcangkok.jpg"
+  },
+  {
+    "id_kategori": 4,
+    "id_topik": 16,
+    "judul": "Manfaat Mencangkok",
+    "image": "assets/images/manfaatcangkok.jpg"
+  },
+  {
+    "id_kategori": 4,
+    "id_topik": 17,
+    "judul": "Kerugian Mencangkok",
+    "image": "assets/images/rugicangkok.jpg"
   },
 ];

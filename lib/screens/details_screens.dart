@@ -1,8 +1,35 @@
 import 'package:online_course/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:online_course/models/subtopik.dart';
+import 'package:online_course/models/topik.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
+  final Topik topik;
+
+  const DetailsScreen({Key key, this.topik}) : super(key: key);
+
+  @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  List<Subtopik> subtopiks;
+
+  @override
+  void initState() {
+    filtertopik();
+    // yg dijalanin pertama kali saat rendering
+    // deklarasi variabel & fetching API
+    super.initState();
+  }
+
+  void filtertopik() {
+    subtopiks = listsubtopik
+        .where((item) => item.id_topik == widget.topik.id_topik)
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +38,9 @@ class DetailsScreen extends StatelessWidget {
         decoration: BoxDecoration(
           color: Color(0xFFF5F4EF),
           image: DecorationImage(
-            image: AssetImage("assets/images/ux_big.png"),
+            colorFilter: new ColorFilter.mode(
+                Colors.black.withOpacity(0.4), BlendMode.darken),
+            image: AssetImage(widget.topik.image),
             alignment: Alignment.topRight,
           ),
         ),
@@ -27,58 +56,15 @@ class DetailsScreen extends StatelessWidget {
                     children: <Widget>[
                       GestureDetector(
                           onTap: () => Navigator.pop(context),
-                          child:
-                              SvgPicture.asset("assets/icons/arrow-left.svg")),
-                      SvgPicture.asset("assets/icons/more-vertical.svg"),
+                          child: Icon(
+                            Icons.arrow_back_ios,
+                            color: Colors.white,
+                          ))
                     ],
                   ),
                   SizedBox(height: 30),
-                  ClipPath(
-                    clipper: BestSellerClipper(),
-                    child: Container(
-                      color: kBestSellerColor,
-                      padding: EdgeInsets.only(
-                          left: 10, top: 5, right: 20, bottom: 5),
-                      child: Text(
-                        "BestSeller".toUpperCase(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text("Design Thinking", style: kHeadingxSTyle),
-                  SizedBox(height: 16),
-                  Row(
-                    children: <Widget>[
-                      SvgPicture.asset("assets/icons/person.svg"),
-                      SizedBox(width: 5),
-                      Text("18K"),
-                      SizedBox(width: 20),
-                      SvgPicture.asset("assets/icons/star.svg"),
-                      SizedBox(width: 5),
-                      Text("4.8")
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "\$50 ",
-                          style: kHeadingxSTyle.copyWith(fontSize: 32),
-                        ),
-                        TextSpan(
-                          text: "\$70",
-                          style: TextStyle(
-                            color: kTextColor.withOpacity(.5),
-                            decoration: TextDecoration.lineThrough,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  Text(widget.topik.judul,
+                      style: kHeadingxSTyle.copyWith(color: Colors.white)),
                 ],
               ),
             ),
@@ -87,101 +73,66 @@ class DetailsScreen extends StatelessWidget {
               child: Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(
+                        50,
+                      )),
                   color: Colors.white,
                 ),
                 child: Stack(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(
-                        left: 30,
-                        right: 30,
-                        bottom: 80,
-                        top: 10,
-                      ),
-                      child: ListView(
-                        children: <Widget>[
-                          Text("Course Content", style: kTitleTextStyle),
-                          SizedBox(height: 30),
-                          CourseContent(
-                            number: "01",
-                            duration: 5.35,
-                            title: "Welcome to the Course",
-                            isDone: true,
-                          ),
-                          CourseContent(
-                            number: '02',
-                            duration: 19.04,
-                            title: "Design Thinking - Intro",
-                            isDone: true,
-                          ),
-                          CourseContent(
-                            number: '03',
-                            duration: 15.35,
-                            title: "Design Thinking Process",
-                          ),
-                          CourseContent(
-                            number: '04',
-                            duration: 5.35,
-                            title: "Customer Perspective",
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      right: 0,
-                      left: 0,
-                      bottom: 0,
-                      child: Container(
-                        padding: EdgeInsets.all(20),
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(40),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 4),
-                              blurRadius: 50,
-                              color: kTextColor.withOpacity(.1),
-                            ),
-                          ],
+                        padding: EdgeInsets.only(
+                          left: 30,
+                          right: 30,
+                          bottom: 80,
+                          top: 10,
                         ),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              padding: EdgeInsets.all(14),
-                              height: 56,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFFFEDEE),
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                              child: SvgPicture.asset(
-                                  "assets/icons/shopping-bag.svg"),
-                            ),
-                            SizedBox(width: 20),
-                            Expanded(
-                              child: Container(
-                                alignment: Alignment.center,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
+                        child: ListView.separated(
+                            separatorBuilder: (context, index) => Divider(
                                   color: kBlueColor,
                                 ),
-                                child: Text(
-                                  "Buy Now",
-                                  style: kSubtitleTextStyle.copyWith(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            itemCount: subtopiks.length,
+                            itemBuilder: (context, index) {
+                              Subtopik subs = subtopiks[index];
+                              return Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      (index + 1).toString(),
+                                      style: kSubheadingextStyle.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          subs.judul,
+                                          style: kTitleTextStyle,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          "Oleh : " + subs.nama,
+                                          style: kLabelStyle.copyWith(
+                                              color: kBlueColor,
+                                              fontStyle: FontStyle.italic,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ],
+                                    )
+                                  ],
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                              );
+                            })),
                   ],
                 ),
               ),
@@ -190,88 +141,5 @@ class DetailsScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class CourseContent extends StatelessWidget {
-  final String number;
-  final double duration;
-  final String title;
-  final bool isDone;
-  const CourseContent({
-    Key key,
-    this.number,
-    this.duration,
-    this.title,
-    this.isDone = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
-      child: Row(
-        children: <Widget>[
-          Text(
-            number,
-            style: kHeadingxSTyle.copyWith(
-              color: kTextColor.withOpacity(.15),
-              fontSize: 20,
-            ),
-          ),
-          SizedBox(width: 20),
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: "$duration mins\n",
-                  style: TextStyle(
-                    color: kTextColor.withOpacity(.5),
-                    fontSize: 18,
-                  ),
-                ),
-                TextSpan(
-                  text: title,
-                  style: kSubtitleTextStyle.copyWith(
-                    fontWeight: FontWeight.w600,
-                    height: 1.5,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Spacer(),
-          Container(
-            margin: EdgeInsets.only(left: 20),
-            height: 40,
-            width: 40,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: kGreenColor.withOpacity(isDone ? 1 : .5),
-            ),
-            child: Icon(Icons.play_arrow, color: Colors.white),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class BestSellerClipper extends CustomClipper<Path> {
-  @override
-  getClip(Size size) {
-    var path = Path();
-    path.lineTo(size.width - 20, 0);
-    path.lineTo(size.width, size.height / 2);
-    path.lineTo(size.width - 20, size.height);
-    path.lineTo(0, size.height);
-    path.lineTo(0, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper oldClipper) {
-    return false;
   }
 }

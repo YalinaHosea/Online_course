@@ -15,7 +15,7 @@ List<Category> categories = categoriesData
 var categoriesData = [
   {
     "idKategori": 1,
-    "name": "Menanam",
+    "name": "Menanam Tanaman",
     "courses": 17,
     "image": "assets/images/menanam.jpeg"
   },
@@ -33,7 +33,7 @@ var categoriesData = [
   },
   {
     "idKategori": 4,
-    "name": "Kawin Silang",
+    "name": "Mencangkok",
     "courses": 17,
     "image": "assets/images/kawinsilangtanaman.jpeg"
   },

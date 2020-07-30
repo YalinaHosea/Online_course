@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kTextColor = Color(0xFF0D1333);
-const kBlueColor = Color(0xFF6E8AFA);
+const kBlueColor = Color(0xFF80b155);
 const kBestSellerColor = Color(0xFFFFD073);
 const kGreenColor = Color(0xFF49CC96);
 
@@ -12,7 +12,7 @@ const kHeadingxSTyle = TextStyle(
 );
 const kSubheadingextStyle = TextStyle(
   fontSize: 24,
-  color: Color(0xFF61688B),
+  color: Color(0xFF336a29),
   height: 2,
 );
 
@@ -39,7 +39,7 @@ final kLabelStyle = TextStyle(
 );
 
 final kBoxDecorationStyle = BoxDecoration(
-  color: Color(0xFF6CA8F1),
+  color: Color(0xFF80b155),
   borderRadius: BorderRadius.circular(10.0),
   boxShadow: [
     BoxShadow(
