@@ -1,7 +1,12 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:online_course/constants.dart';
+import 'package:online_course/models/user.dart';
 import 'package:online_course/screens/home_screens.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,6 +14,24 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  signin(String email, password) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    if (email == "y" && password == "y") {
+      // var user = new User(
+      //     1, "yalina", "gn ceuri", "12345678", "assets/images/user.png");
+      // var json = jsonEncode(user);
+      Response response = await Dio().post(url_user);
+      sharedPreferences.setString("user", response.toString());
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
+          (Route<dynamic> route) => false);
+    }
+  }
+
+  final TextEditingController emailcontroller = new TextEditingController();
+  final TextEditingController passwordcontroller = new TextEditingController();
+
   Widget _buildEmailTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 60.0,
           child: TextField(
             keyboardType: TextInputType.emailAddress,
+            controller: emailcontroller,
             style: TextStyle(
               color: Colors.white,
               fontFamily: 'OpenSans',
@@ -58,6 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: passwordcontroller,
             obscureText: true,
             style: TextStyle(
               color: Colors.white,
@@ -85,9 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
-            (Route<dynamic> route) => false),
+        onPressed: () => signin(emailcontroller.text, passwordcontroller.text),
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),

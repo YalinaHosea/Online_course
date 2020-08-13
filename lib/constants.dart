@@ -4,6 +4,13 @@ const kTextColor = Color(0xFF0D1333);
 const kBlueColor = Color(0xFF80b155);
 const kBestSellerColor = Color(0xFFFFD073);
 const kGreenColor = Color(0xFF49CC96);
+const kRedColor = Color(0xFFE68C8C);
+
+const url_user = "https://next.json-generator.com/api/json/get/4yIaH6a-Y";
+const url_pengajar = "https://next.json-generator.com/api/json/get/VypKq6TbF";
+const url_topik = "https://next.json-generator.com/api/json/get/NyG5Vpa-Y";
+const url_subtopik = "https://next.json-generator.com/api/json/get/V1UNrpaZt";
+const url_category = "https://next.json-generator.com/api/json/get/E1WOBp6ZY";
 
 const kHeadingxSTyle = TextStyle(
   fontSize: 28,
