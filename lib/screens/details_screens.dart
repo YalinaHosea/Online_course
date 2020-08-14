@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_course/models/pengajar.dart';
 import 'package:online_course/models/subtopik.dart';
 import 'package:online_course/models/topik.dart';
+import 'package:online_course/screens/pengajar_screens.dart/pengajar_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -102,29 +103,37 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 child: CircularProgressIndicator(),
                               ),
                             )
-                          : Column(
-                              children: <Widget>[
-                                Center(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(50.0),
-                                    child: Image.asset(
-                                      snapshot.data.foto,
-                                      height: 80.0,
-                                      width: 80.0,
-                                      fit: BoxFit.cover,
+                          : GestureDetector(
+                              onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => PengajarScreen(
+                                            pengajar: snapshot.data,
+                                          ))),
+                              child: Column(
+                                children: <Widget>[
+                                  Center(
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      child: Image.asset(
+                                        snapshot.data.foto,
+                                        height: 80.0,
+                                        width: 80.0,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Center(
-                                    child: Text(
-                                  snapshot.data.nama,
-                                  style: kHeadingxSTyle.copyWith(
-                                      color: Colors.white, fontSize: 15.0),
-                                ))
-                              ],
+                                  SizedBox(
+                                    height: 10.0,
+                                  ),
+                                  Center(
+                                      child: Text(
+                                    snapshot.data.nama,
+                                    style: kHeadingxSTyle.copyWith(
+                                        color: Colors.white, fontSize: 15.0),
+                                  ))
+                                ],
+                              ),
                             )
                     ],
                   ),
