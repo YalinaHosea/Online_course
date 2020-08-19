@@ -36,23 +36,17 @@ class _TopikScreenState extends State<TopikScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          brightness: Brightness.light,
+          elevation: 0.0,
+          iconTheme: IconThemeData(color: Colors.black),
+        ),
         body: Padding(
-            padding: EdgeInsets.only(left: 20, top: 50, right: 20),
+            padding: EdgeInsets.only(left: 20, right: 20),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
                     Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  GestureDetector(
-                      onTap: () =>
-                          Navigator.pop(context), //NavPop = buat ngeback
-                      child: Icon(Icons.arrow_back_ios)),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
               Text("TOPIK", style: kHeadingxSTyle),
               Text("Kumpulan topik " + widget.category.name,
                   style: kSubheadingextStyle),

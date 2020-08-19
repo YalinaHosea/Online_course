@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_course/constants.dart';
 import 'package:online_course/models/user.dart';
+import 'package:online_course/screens/editprofil_screen.dart';
 import 'package:online_course/screens/login_sreens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -62,9 +63,19 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     style: kHeadingxSTyle.copyWith(fontSize: 20.0),
                   ),
                   new Spacer(),
-                  Icon(
-                    Icons.edit,
-                    color: Colors.grey,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => EditProfil(
+                                    user: widget.user,
+                                  )));
+                    },
+                    child: Icon(
+                      Icons.edit,
+                      color: Colors.grey,
+                    ),
                   )
                 ],
               ),

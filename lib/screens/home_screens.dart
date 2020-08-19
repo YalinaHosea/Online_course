@@ -62,7 +62,21 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      SvgPicture.asset("assets/icons/menu.svg"),
+                      Row(
+                        children: <Widget>[
+                          SvgPicture.asset(
+                            "assets/icons/leaf.svg",
+                            color: kBlueColor,
+                            height: 25,
+                            width: 25,
+                          ),
+                          Text("Dutani",
+                              style: TextStyle(
+                                  color: kBlueColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20))
+                        ],
+                      ),
                       GestureDetector(
                         onTap: () => Navigator.push(
                             context,
@@ -79,13 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 30,
                   ),
-                  Text("Hello" + user.nama, style: kHeadingxSTyle),
-                  Text("Find a course you want to learn",
-                      style: kSubheadingextStyle),
+                  Text("Hello, " + user.nama, style: kHeadingxSTyle),
+                  Text("Temukan tips terbaik untuk bertani",
+                      style: kSubheadingextStyle.copyWith(fontSize: 20)),
                   Container(
-                    margin: EdgeInsets.symmetric(vertical: 30),
+                    margin: EdgeInsets.symmetric(vertical: 20),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                    height: 60,
+                    height: 50,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Color(0xFFF5F5F7),
@@ -98,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "Search for anything",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 15,
                             color: Color(0XFFA0A5BD),
                           ),
                         )
@@ -110,8 +124,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: <Widget>[
                       Text("Category", style: kHeadingxSTyle),
                       Text("See all",
-                          style:
-                              kSubheadingextStyle.copyWith(color: kBlueColor))
+                          style: kSubheadingextStyle.copyWith(
+                              color: kBlueColor, fontSize: 18))
                     ],
                   ),
                   SizedBox(height: 30),

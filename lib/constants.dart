@@ -5,6 +5,7 @@ const kBlueColor = Color(0xFF80b155);
 const kBestSellerColor = Color(0xFFFFD073);
 const kGreenColor = Color(0xFF49CC96);
 const kRedColor = Color(0xFFE68C8C);
+const kGrey = Color(0xFFD9D9D9);
 
 const url_user = "https://next.json-generator.com/api/json/get/4yIaH6a-Y";
 const url_pengajar = "https://next.json-generator.com/api/json/get/VypKq6TbF";

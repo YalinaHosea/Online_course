@@ -1,11 +1,12 @@
 class User {
   final int id;
   final String nama;
-  final String alamat;
   final String no_hp;
   final String foto;
+  final String alamat;
+  final String email;
 
-  User(this.id, this.nama, this.alamat, this.no_hp, this.foto);
+  User(this.id, this.nama, this.no_hp, this.foto, this.alamat, this.email);
 
   @override
   String toString() {
@@ -16,15 +17,17 @@ class User {
   User.fromJson(Map<String, dynamic> json)
       : id = int.parse(json['id'].toString()),
         nama = json['nama'],
-        alamat = json['alamat'],
         no_hp = json['no_hp'],
-        foto = json['foto'];
+        foto = json['foto'],
+        alamat = json['alamat'],
+        email = json['email'];
 
   Map<String, dynamic> toJson() => {
         'id': id.toString(),
         'nama': nama,
-        "alamat": alamat,
         "no_hp": no_hp,
         "foto": foto,
+        "alamat": alamat,
+        "email": email,
       };
 }
