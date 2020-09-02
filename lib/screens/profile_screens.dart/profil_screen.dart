@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_course/constants.dart';
+import 'package:online_course/models/pertanyaan.dart';
 import 'package:online_course/models/user.dart';
+import 'package:online_course/screens/Pertanyaan_screens/pertanyaan_saya_screen.dart';
+import 'package:online_course/screens/TambahPertanyaan_screens.dart';
 import 'package:online_course/screens/editprofil_screen.dart';
 import 'package:online_course/screens/login_sreens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -51,6 +54,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     borderRadius: BorderRadius.circular(50.0),
                     child: Image.asset(
                       widget.user.foto,
+                      fit: BoxFit.cover,
                       height: 80.0,
                       width: 80.0,
                     ),
@@ -113,7 +117,68 @@ class _ProfilScreenState extends State<ProfilScreen> {
               ),
             ),
             SizedBox(
-              height: 20.0,
+              height: 10.0,
+            ),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => PertanyaanSayaScreen()));
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        SvgPicture.asset(
+                          "assets/icons/question.svg",
+                          height: 30.0,
+                          width: 30.0,
+                          color: kBlueColor,
+                        ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
+                        Text(
+                          "Pertanyaan Saya",
+                          style: kTitleTextStyle,
+                        )
+                      ],
+                    ))),
+            SizedBox(
+              height: 10.0,
+            ),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => TambahPertanyaan(
+                                  title: "Pusat Bantuan",
+                                )));
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      SvgPicture.asset(
+                        "assets/icons/call-center.svg",
+                        height: 30.0,
+                        width: 30.0,
+                        color: kBlueColor,
+                      ),
+                      SizedBox(
+                        width: 10.0,
+                      ),
+                      Text(
+                        "Pusat Bantuan",
+                        style: kTitleTextStyle,
+                      )
+                    ],
+                  ),
+                )),
+            SizedBox(
+              height: 10.0,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),

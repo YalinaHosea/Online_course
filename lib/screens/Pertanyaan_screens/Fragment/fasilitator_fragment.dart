@@ -1,0 +1,93 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:online_course/constants.dart';
+import 'package:online_course/models/pertanyaan.dart';
+import 'package:online_course/screens/jawaban_screens.dart/jawaban_screen.dart';
+
+class FasilitatorFragment extends StatefulWidget {
+  @override
+  _FasilitatorFragmentState createState() => _FasilitatorFragmentState();
+}
+
+class _FasilitatorFragmentState extends State<FasilitatorFragment> {
+  Future<List<Pertanyaan>> getPertanyaan() async {
+    var data = await Dio().post(url_pertanyaan);
+    List<Pertanyaan> pertanyaans = [];
+    for (var item in data.data) {
+      Pertanyaan pertanyaan = Pertanyaan(
+          item["id"], item["pertanyaan"], item['deskripsi'], item["addtime"]);
+
+      pertanyaans.add(pertanyaan);
+    }
+    return pertanyaans;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(top: 30),
+        child: FutureBuilder(
+            future: getPertanyaan(),
+            builder: (context, snapshot) {
+              if (snapshot.data == null) {
+                return Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              } else {
+                return (ListView.separated(
+                    separatorBuilder: (context, index) => SizedBox(
+                          height: 25,
+                        ),
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      Pertanyaan per = snapshot.data[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => JawabanScreen()));
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  per.pertanyaan,
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                new Spacer(),
+                                SvgPicture.asset(
+                                  "assets/icons/more.svg",
+                                  height: 12,
+                                  width: 12,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              per.addtime,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w300,
+                                  fontStyle: FontStyle.italic,
+                                  color: Colors.black45,
+                                  fontSize: 12),
+                            )
+                          ],
+                        ),
+                      );
+                    }));
+              }
+            }),
+      ),
+    );
+  }
+}
