@@ -6,7 +6,7 @@ class Pertanyaan {
   final String deskripsi;
   final String addtime;
 
-  Pertanyaan(this.id, this.pertanyaan, this.addtime, this.deskripsi);
+  Pertanyaan(this.id, this.pertanyaan, this.deskripsi, this.addtime,);
 
   Pertanyaan.fromJson(Map<String, dynamic> json)
       : id = int.parse(json['id'].toString()),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_course/Component/underline_textbox.dart';
-import 'package:online_course/constants.dart';
+import 'package:online_course/services/constants/constants.dart';
 import 'package:online_course/models/user.dart';
 
 class EditProfil extends StatefulWidget {
@@ -14,7 +14,8 @@ class EditProfil extends StatefulWidget {
 
 class _EditProfilState extends State<EditProfil> {
   final TextEditingController namaController = new TextEditingController();
-  final TextEditingController no_hpController = new TextEditingController();
+  final TextEditingController nomorTelponController =
+      new TextEditingController();
   final TextEditingController fotoController = new TextEditingController();
   final TextEditingController alamatController = new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
@@ -25,7 +26,7 @@ class _EditProfilState extends State<EditProfil> {
     // TODO: implement initState
     super.initState();
     namaController.text = widget.user.nama;
-    no_hpController.text = widget.user.no_hp;
+    nomorTelponController.text = widget.user.nomorTelpon;
     fotoController.text = widget.user.foto;
     alamatController.text = widget.user.alamat;
     emailController.text = widget.user.email;
@@ -77,7 +78,7 @@ class _EditProfilState extends State<EditProfil> {
                       obscure: false,
                       label: "nama"),
                   Underline_textbox(
-                      controller: no_hpController,
+                      controller: nomorTelponController,
                       obscure: false,
                       label: "no hp"),
                   Underline_textbox(
@@ -97,6 +98,7 @@ class _EditProfilState extends State<EditProfil> {
                       margin: EdgeInsets.symmetric(vertical: 10),
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
                         child: FlatButton(
                             padding: EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 40),

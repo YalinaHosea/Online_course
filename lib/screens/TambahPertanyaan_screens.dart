@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_course/Component/rounded_button.dart';
 import 'package:online_course/Component/text_area.dart';
 import 'package:online_course/Component/underline_textbox.dart';
-import 'package:online_course/constants.dart';
+import 'package:online_course/services/constants/constants.dart';
 
 class TambahPertanyaan extends StatefulWidget {
   final String title;

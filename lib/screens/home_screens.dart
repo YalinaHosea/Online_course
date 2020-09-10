@@ -3,7 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:online_course/constants.dart';
+import 'package:online_course/screens/login_sreens.dart';
+import 'package:online_course/services/api/repository.dart';
+import 'package:online_course/services/constants/constants.dart';
 import 'package:online_course/models/category.dart';
 import 'package:online_course/models/user.dart';
 import 'package:online_course/screens/profile_screens.dart/profil_screen.dart';
@@ -18,27 +20,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   SharedPreferences sharedPreferences;
   User user;
+  ApiRepository apiRepository = new ApiRepository();
 
   Future<User> checkloginstatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
-    if (sharedPreferences.getString("user") != null) {
-      var json = sharedPreferences.getString("user");
-      Map userMap = jsonDecode(json);
-
-      user = User.fromJson(userMap);
+    if (sharedPreferences.getString("user") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+          (Route<dynamic> route) => false);
+    } else {
+      var jsonstring = sharedPreferences.getString("user");
+      var json = jsonDecode(jsonstring);
+      user = User.fromJson(json);
     }
     return user;
-  }
-
-  Future<List<Category>> getCategory() async {
-    var data = await Dio().post(url_category);
-    List<Category> categories = [];
-    for (var item in data.data) {
-      Category category = Category(item["idKategori"], item["name"],
-          item["numOfCourses"], item["image"]);
-      categories.add(category);
-    }
-    return categories;
   }
 
   @override
@@ -128,9 +123,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: kBlueColor, fontSize: 18))
                     ],
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 10),
                   FutureBuilder(
-                    future: getCategory(),
+                    future: apiRepository.getListKategory,
                     builder: (context, snapshot) {
                       if (snapshot.data == null) {
                         return (Container(
@@ -179,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                               image: DecorationImage(
-                                                image: AssetImage(cat.image),
+                                                image: AssetImage(cat.foto),
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -196,18 +191,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
                                           Text(
-                                            cat.name,
+                                            cat.namaKategori,
                                             style: kTitleTextStyle.copyWith(
                                                 color: Colors.white),
                                           ),
-                                          Text(
-                                            cat.numOfCourses.toString() +
-                                                ' Courses',
-                                            style: kSubtitleTextStyle.copyWith(
-                                                color: Colors.white,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w300),
-                                          ),
+                                          // Text(
+                                          //   cat.numOfCourses.toString() +
+                                          //       ' Courses',
+                                          //   style: kSubtitleTextStyle.copyWith(
+                                          //       color: Colors.white,
+                                          //       fontSize: 15,
+                                          //       fontWeight: FontWeight.w300),
+                                          // ),
                                         ],
                                       ),
                                     ),

@@ -1,10 +1,9 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:online_course/constants.dart';
-import 'package:online_course/models/user.dart';
+import 'package:online_course/models/response/login_response.dart';
+import 'package:online_course/services/api/repository.dart';
+import 'package:online_course/services/constants/constants.dart';
+import 'package:online_course/screens/Register_screens.dart';
 import 'package:online_course/screens/home_screens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,18 +13,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  signin(String email, password) async {
+  ApiRepository apiRepository = new ApiRepository();
+  signIn(String email, password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-    if (email == "y" && password == "y") {
-      // var user = new User(
-      //     1, "yalina", "gn ceuri", "12345678", "assets/images/user.png");
-      // var json = jsonEncode(user);
-      Response response = await Dio().post(url_user);
-      sharedPreferences.setString("user", response.toString());
-      Navigator.of(context).pushAndRemoveUntil(
+    LoginResponse response = await apiRepository.login(email, password);
+    if (response.result.resultcode == 1) {
+      var userjson = response.user[0].toJson();
+      sharedPreferences.setString("user", userjson.toString());
+      Navigator.pushAndRemoveUntil(
+          context,
           MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
-          (Route<dynamic> route) => false);
+          (route) => false);
     }
   }
 
@@ -110,7 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => signin(emailcontroller.text, passwordcontroller.text),
+        onPressed: () => signIn(emailcontroller.text, passwordcontroller.text),
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -132,7 +131,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSignupBtn() {
     return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
+      onTap: () => Navigator.push(
+          context, MaterialPageRoute(builder: (_) => RegisterScreen())),
       child: RichText(
         text: TextSpan(
           children: [

@@ -1,13 +1,17 @@
 class Topik {
-  // ignore: non_constant_identifier_names
-  final int id_kategori;
-  // ignore: non_constant_identifier_names
-  final int id_topik;
-  final String judul;
-  final int id_pengajar;
-  final String nama_pengajar;
-  final String image;
+  int iDTopik;
+  String iDUser;
+  String iDKategori;
+  String topik;
+  String foto;
 
-  Topik(this.id_kategori, this.id_topik, this.judul, this.image,
-      this.id_pengajar, this.nama_pengajar);
+  Topik({this.iDTopik, this.iDUser, this.iDKategori, this.topik, this.foto});
+
+  Topik.fromJson(Map<String, dynamic> json) {
+    iDTopik = json['ID_Topik'];
+    iDUser = json['ID_User'];
+    iDKategori = json['ID_Kategori'];
+    topik = json['Topik'];
+    foto = "assets/images/rugicangkok.jpg";
+  }
 }

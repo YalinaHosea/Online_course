@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:online_course/constants.dart';
+import 'package:online_course/services/api/repository.dart';
+import 'package:online_course/services/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_course/models/pengajar.dart';
-import 'package:online_course/models/subtopik.dart';
+import 'package:online_course/models/materi.dart';
 import 'package:online_course/models/topik.dart';
 import 'package:online_course/screens/pengajar_screens.dart/pengajar_screen.dart';
 import 'package:social_share/social_share.dart';
@@ -19,35 +20,19 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  ApiRepository apiRepository = new ApiRepository();
   Future<Pengajar> getpengajar() async {
-    var data = await Dio().post(url_pengajar);
-    Pengajar pengajar;
-    for (var item in data.data) {
-      if (item["id_pengajar"] == widget.topik.id_pengajar) {
-        pengajar = Pengajar(item["id_pengajar"], item["nama"], item["alamat"],
-            item["no_hp"], item["email"], item["keahlian"], item["foto"]);
-      }
-    }
+    var data = {
+      "id_pengajar": 1,
+      "nama": "Argo",
+      "alamat": "Jl. Kemiri",
+      "no_hp": "(821) 462-2515",
+      "email": "budi@gmail.com",
+      "keahlian": "Menanam",
+      "foto": "assets/images/pengajar1.jpg"
+    };
+    Pengajar pengajar = Pengajar.fromJson(data);
     return pengajar;
-  }
-
-  Future<List<Subtopik>> getsubTopik() async {
-    var data = await Dio().post(url_subtopik);
-    List<Subtopik> subtopiks = [];
-    for (var item in data.data) {
-      if (item["id_topik"] == widget.topik.id_topik) {
-        Subtopik subtopik = Subtopik(
-            item["id_subtopik"],
-            item["id_topik"],
-            item["judul"],
-            item["deskripsi"],
-            item["link_video"],
-            item["link_pdf"],
-            item["link_web"]);
-        subtopiks.add(subtopik);
-      }
-    }
-    return subtopiks;
   }
 
   redirectUrl(String url) async {
@@ -76,7 +61,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           image: DecorationImage(
             colorFilter: new ColorFilter.mode(
                 Colors.black.withOpacity(0.4), BlendMode.darken),
-            image: AssetImage(widget.topik.image),
+            image: AssetImage(widget.topik.foto),
             fit: BoxFit.cover,
             alignment: Alignment.topCenter,
           ),
@@ -92,7 +77,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Center(
-                        child: Text(widget.topik.judul,
+                        child: Text(widget.topik.topik,
                             style:
                                 kHeadingxSTyle.copyWith(color: Colors.white)),
                       ),
@@ -155,7 +140,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     child: Stack(
                       children: <Widget>[
                         FutureBuilder(
-                            future: getsubTopik(),
+                            future: apiRepository.getMateri(widget.topik.topik),
                             builder: (context, snapshot) {
                               if (snapshot.data == null) {
                                 return (Container(
@@ -172,55 +157,60 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                     itemCount: snapshot.data.length,
                                     itemBuilder: (context, index) {
-                                      Subtopik subs = snapshot.data[index];
-                                      return Column(children: <Widget>[
-                                        Row(children: <Widget>[
-                                          Text(subs.judul,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18)),
-                                          new Spacer(),
-                                          GestureDetector(
+                                      Materi subs = snapshot.data[index];
+                                      return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Row(children: <Widget>[
+                                              Text(subs.namaMateri,
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18)),
+                                              new Spacer(),
+                                              GestureDetector(
+                                                  onTap: () =>
+                                                      SocialShare.shareWhatsapp(
+                                                          subs.linkVideo),
+                                                  child: Icon(
+                                                    Icons.share,
+                                                    color: kBlueColor,
+                                                  ))
+                                            ]),
+                                            SizedBox(height: 15),
+                                            Text(subs.deskripsi,
+                                                style: TextStyle(
+                                                    color: Colors.black54,
+                                                    fontStyle:
+                                                        FontStyle.italic)),
+                                            SizedBox(height: 10),
+                                            GestureDetector(
                                               onTap: () =>
-                                                  SocialShare.shareWhatsapp(
-                                                      subs.link_web),
-                                              child: Icon(
-                                                Icons.share,
-                                                color: kBlueColor,
-                                              ))
-                                        ]),
-                                        SizedBox(height: 15),
-                                        Text(subs.deskripsi,
-                                            style: TextStyle(
-                                                color: Colors.black54,
-                                                fontStyle: FontStyle.italic)),
-                                        SizedBox(height: 10),
-                                        GestureDetector(
-                                          onTap: () =>
-                                              redirectUrl(subs.link_pdf),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Icon(Icons.attach_file,
-                                                  color: kBlueColor),
-                                              SizedBox(width: 5),
-                                              Text("Lihat Pdf")
-                                            ],
-                                          ),
-                                        ),
-                                        SizedBox(height: 10),
-                                        GestureDetector(
-                                          onTap: () =>
-                                              redirectUrl(subs.link_video),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Icon(Icons.play_circle_filled,
-                                                  color: kBlueColor),
-                                              SizedBox(width: 5),
-                                              Text("Putar Video")
-                                            ],
-                                          ),
-                                        )
-                                      ]);
+                                                  redirectUrl(subs.dokumen),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Icon(Icons.attach_file,
+                                                      color: kBlueColor),
+                                                  SizedBox(width: 5),
+                                                  Text("Lihat Pdf")
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            GestureDetector(
+                                              onTap: () =>
+                                                  redirectUrl(subs.linkVideo),
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Icon(Icons.play_circle_filled,
+                                                      color: kBlueColor),
+                                                  SizedBox(width: 5),
+                                                  Text("Putar Video")
+                                                ],
+                                              ),
+                                            )
+                                          ]);
                                     }));
                               }
                             }),

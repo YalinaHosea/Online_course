@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:online_course/constants.dart';
+import 'package:online_course/services/constants/constants.dart';
 import 'package:online_course/models/pertanyaan.dart';
 import 'package:online_course/models/user.dart';
 import 'package:online_course/screens/Pertanyaan_screens/pertanyaan_saya_screen.dart';
 import 'package:online_course/screens/TambahPertanyaan_screens.dart';
 import 'package:online_course/screens/editprofil_screen.dart';
+import 'package:online_course/screens/history_screen.dart';
 import 'package:online_course/screens/login_sreens.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,23 +30,17 @@ class _ProfilScreenState extends State<ProfilScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        brightness: Brightness.light,
+        elevation: 0.0,
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: Icon(
-                    Icons.arrow_back_ios,
-                    color: kTextColor,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 20.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -98,22 +93,28 @@ class _ProfilScreenState extends State<ProfilScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
-              child: Row(
-                children: <Widget>[
-                  SvgPicture.asset(
-                    "assets/icons/history.svg",
-                    height: 30.0,
-                    width: 30.0,
-                    color: kBlueColor,
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
-                    "History",
-                    style: kTitleTextStyle,
-                  )
-                ],
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => Historyscreen()));
+                },
+                child: Row(
+                  children: <Widget>[
+                    SvgPicture.asset(
+                      "assets/icons/history.svg",
+                      height: 30.0,
+                      width: 30.0,
+                      color: kBlueColor,
+                    ),
+                    SizedBox(
+                      width: 10.0,
+                    ),
+                    Text(
+                      "History",
+                      style: kTitleTextStyle,
+                    )
+                  ],
+                ),
               ),
             ),
             SizedBox(

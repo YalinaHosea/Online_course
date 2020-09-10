@@ -7,14 +7,17 @@ const kGreenColor = Color(0xFF49CC96);
 const kRedColor = Color(0xFFE68C8C);
 const kGrey = Color(0xFFD9D9D9);
 
-const url_user = "https://next.json-generator.com/api/json/get/4yIaH6a-Y";
+const base_url = "https://dutatani.fti.ukdw.ac.id/api/";
 const url_pengajar = "https://next.json-generator.com/api/json/get/VypKq6TbF";
-const url_topik = "https://next.json-generator.com/api/json/get/NyG5Vpa-Y";
-const url_subtopik = "https://next.json-generator.com/api/json/get/V1UNrpaZt";
-const url_category = "https://next.json-generator.com/api/json/get/E1WOBp6ZY";
+const url_topik = "topik";
+const url_subtopik = "materi";
+const url_category = "kategori";
 const url_pertanyaan = "https://next.json-generator.com/api/json/get/V1bS-ogQY";
 const url_history = "https://next.json-generator.com/api/json/get/V11OokPXY";
 const url_jawaban = "https://next.json-generator.com/api/json/get/EkA7dYwXF";
+const url_register = "https://next.json-generator.com/api/json/get/415fOyw7t";
+const url_login = "login";
+
 const kHeadingxSTyle = TextStyle(
   fontSize: 28,
   color: kTextColor,

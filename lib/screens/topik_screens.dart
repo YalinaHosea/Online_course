@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:online_course/constants.dart';
+import 'package:online_course/services/api/repository.dart';
+import 'package:online_course/services/constants/constants.dart';
 import 'package:online_course/models/category.dart';
 import 'package:online_course/models/topik.dart';
 import 'package:online_course/screens/details_screens.dart';
@@ -15,23 +16,7 @@ class TopikScreen extends StatefulWidget {
 }
 
 class _TopikScreenState extends State<TopikScreen> {
-  Future<List<Topik>> getTopik() async {
-    var data = await Dio().post(url_topik);
-    List<Topik> topiks = [];
-    for (var item in data.data) {
-      if (item["id_kategori"] == widget.category.idKategori) {
-        Topik topik = Topik(
-            item["id_kategori"],
-            item["id_topik"],
-            item["judul"],
-            item["image"],
-            item["id_pengajar"],
-            item["nama_pengajar"]);
-        topiks.add(topik);
-      }
-    }
-    return topiks;
-  }
+  ApiRepository apiRepository = new ApiRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +33,11 @@ class _TopikScreenState extends State<TopikScreen> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: <
                     Widget>[
               Text("TOPIK", style: kHeadingxSTyle),
-              Text("Kumpulan topik " + widget.category.name,
+              Text("Kumpulan topik " + widget.category.namaKategori,
                   style: kSubheadingextStyle),
               SizedBox(height: 30),
               FutureBuilder(
-                  future: getTopik(),
+                  future: apiRepository.getTopik(widget.category.iDKategori),
                   builder: (context, snapshot) {
                     if (snapshot.data == null) {
                       return (Container(
@@ -99,7 +84,7 @@ class _TopikScreenState extends State<TopikScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(16),
                                                 image: DecorationImage(
-                                                  image: AssetImage(item.image),
+                                                  image: AssetImage(item.foto),
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
@@ -114,14 +99,14 @@ class _TopikScreenState extends State<TopikScreen> {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              item.judul,
+                                              item.topik,
                                               style: kTitleTextStyle.copyWith(
                                                 color: Colors.white,
                                                 fontSize: 15.0,
                                               ),
                                             ),
                                             Text(
-                                              "oleh " + item.nama_pengajar,
+                                              "oleh " + item.iDUser,
                                               style: kTitleTextStyle.copyWith(
                                                   color: Colors.white,
                                                   fontSize: 12.0,
