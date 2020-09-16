@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:online_course/models/category.dart';
 import 'package:online_course/models/materi.dart';
+import 'package:online_course/models/register_respon.dart';
+import 'package:online_course/models/registerrequest.dart';
 import 'package:online_course/models/response/login_response.dart';
 import 'package:online_course/models/topik.dart';
 import 'package:online_course/services/constants/constants.dart';
@@ -68,5 +70,27 @@ class ApiProvider {
     } else {
       return null;
     }
+  }
+
+  Future<RegisterResponse> regis(RegisterRequest req) async {
+    var data = req.toJson();
+    Response response = await dio.post(
+      "register",
+      data: data,
+      options: Options(
+        followRedirects: false,
+        validateStatus: (status) {
+          return status < 500;
+        },
+      ),
+    );
+    RegisterResponse respon;
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      respon = RegisterResponse.fromJson(response.data);
+    } else {
+      respon =
+          new RegisterResponse(message: "Data user sudah pernah terdaftar");
+    }
+    return respon;
   }
 }

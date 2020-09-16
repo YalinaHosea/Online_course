@@ -18,6 +18,43 @@ const url_jawaban = "https://next.json-generator.com/api/json/get/EkA7dYwXF";
 const url_register = "https://next.json-generator.com/api/json/get/415fOyw7t";
 const url_login = "login";
 
+const list_provinsi = [
+  "Nanggroe Aceh Darussalam",
+  "Sumatera Utara",
+  "Sumatera Barat",
+  "Riau",
+  "Kepulauan Riau",
+  "Jambi",
+  "Bengkulu",
+  "Sumatera Selatan",
+  "Kepulauan Bangka Belitung",
+  "Lampung",
+  "Banten",
+  "DKI Jakarta",
+  "Jawa Barat",
+  "Jawa Tengah",
+  "Jawa Timur",
+  "DI Yogyakarta",
+  "Bali",
+  "Nusa Tenggara Barat",
+  "Nusa Tenggara Timur",
+  "Kalimantan Utara",
+  "Kalimantan Selatan",
+  "Kalimantan Barat",
+  "Kalimantan Timur",
+  "Kalimantan Tengah",
+  "Gorontalo",
+  "Sulawesi Utara",
+  "Sulawesi Selatan",
+  "Sulawesi Barat",
+  "Sulawesi Tenggara",
+  "Sulawesi Tengah",
+  "Maluku",
+  "Maluku Utara",
+  "Papua",
+  "Papua Barat"
+];
+
 const kHeadingxSTyle = TextStyle(
   fontSize: 28,
   color: kTextColor,
