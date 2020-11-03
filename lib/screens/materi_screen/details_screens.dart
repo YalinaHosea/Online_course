@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:online_course/Component/loading_dialog.dart';
+import 'package:online_course/models/history_request.dart';
+import 'package:online_course/models/user.dart';
 import 'package:online_course/screens/Pertanyaan_screens/pertanyaan_saya_screen.dart';
 import 'package:online_course/screens/TambahPertanyaan_screens.dart';
 import 'package:online_course/screens/materi_screen/component/materi_item.dart';
@@ -10,6 +15,7 @@ import 'package:online_course/models/pengajar.dart';
 import 'package:online_course/models/materi.dart';
 import 'package:online_course/models/topik.dart';
 import 'package:online_course/screens/pengajar_screens.dart/pengajar_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_share/social_share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,6 +30,29 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   ApiRepository apiRepository = new ApiRepository();
+
+  posthistory(Materi sub, String url) async {
+    showAlertDialog(context, "");
+    bool error = false;
+    User user;
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var jsonstring = sharedPreferences.getString("user");
+    var json = jsonDecode(jsonstring);
+    user = User.fromJson(json);
+    HistoryRequest historyRequest;
+    historyRequest = new HistoryRequest(sub.id, sub.iD_User, user.iDUser,
+        sub.nama_materi, int.parse(sub.id_topik));
+    await apiRepository.postHistory(historyRequest).then((value) {
+      if (value == null) {
+        error = true;
+        showResponse(
+            context, "Terjadi kesalahan", () => Navigator.pop(context));
+      } else {
+        Navigator.pop(context);
+        redirectURL(url);
+      }
+    });
+  }
 
   redirectURL(String url) async {
     if (await canLaunch(url)) {
@@ -176,12 +205,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                             MateriItem(
                                                               subs: item,
                                                               function_video: () =>
-                                                                  redirectURL(
+                                                                  posthistory(
+                                                                      item,
                                                                       "https://www.youtube.com/watch?v=" +
                                                                           item.link_video),
                                                               function_pdf: () =>
-                                                                  redirectURL(item
-                                                                      .link_pdf),
+                                                                  posthistory(
+                                                                      item,
+                                                                      item.link_pdf),
                                                             ),
                                                             SizedBox(
                                                               height: 50,

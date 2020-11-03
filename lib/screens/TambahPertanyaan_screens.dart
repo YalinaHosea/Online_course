@@ -11,6 +11,7 @@ import 'package:online_course/screens/login_sreens.dart';
 import 'package:online_course/services/api/repository.dart';
 import 'package:online_course/services/constants/constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:online_course/services/validator/validator.dart';
 
 class TambahPertanyaan extends StatefulWidget {
   final String title;
@@ -20,7 +21,8 @@ class TambahPertanyaan extends StatefulWidget {
   _TambahPertanyaanState createState() => _TambahPertanyaanState();
 }
 
-class _TambahPertanyaanState extends State<TambahPertanyaan> {
+class _TambahPertanyaanState extends State<TambahPertanyaan> with Validator {
+  final formkey = GlobalKey<FormState>();
   final TextEditingController judulcontroller = new TextEditingController();
   final TextEditingController pertanyaancontroller =
       new TextEditingController();
@@ -96,76 +98,87 @@ class _TambahPertanyaanState extends State<TambahPertanyaan> {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.w600)),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            // Underline_textbox(
-            //     label: "Judul Pertanyaan",
-            //     obscure: false,
-            //     controller: judulcontroller),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            Text(
-              "Pertanyaan",
-              style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black54),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextArea(
-              controller: pertanyaancontroller,
-            ),
-            SizedBox(
-              height: 25,
-            ),
-            RichText(
-                text: TextSpan(
-                    text: "Lampirkan File",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.black54),
-                    children: <TextSpan>[
-                  TextSpan(
-                      text: " (optional)",
-                      style: TextStyle(
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w300,
-                          fontSize: 12)),
-                ])),
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              width: 100,
-              height: 30,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(29),
-                child: FlatButton(
-                  color: kBlueColor,
-                  onPressed: getImage,
-                  child: Text(
-                    "Upload",
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: formkey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                // Underline_textbox(
+                //     label: "Judul Pertanyaan",
+                //     obscure: false,
+                //     controller: judulcontroller),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                Text(
+                  "Pertanyaan",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black54),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextArea(
+                  controller: pertanyaancontroller,
+                  validator: validateempty,
+                ),
+                SizedBox(
+                  height: 25,
+                ),
+                RichText(
+                    text: TextSpan(
+                        text: "Lampirkan File",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.black54),
+                        children: <TextSpan>[
+                      TextSpan(
+                          text: " (optional)",
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 12)),
+                    ])),
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10),
+                  width: 100,
+                  height: 30,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(29),
+                    child: FlatButton(
+                      color: kBlueColor,
+                      onPressed: getImage,
+                      child: Text(
+                        "Upload",
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                if (imagepicked != null)
+                  Image.file(imagepicked,
+                      height: 200, width: 200, fit: BoxFit.contain),
+                SizedBox(
+                  height: 30,
+                ),
+                RoundedButton(
+                  text: "POST",
+                  color: kBlueColor,
+                  press: () {
+                    if (formkey.currentState.validate()) {
+                      formkey.currentState.save();
+                      postpertanyaan();
+                    }
+                  },
+                )
+              ],
             ),
-            if (imagepicked != null)
-              Image.file(imagepicked,
-                  height: 100, width: 100, fit: BoxFit.contain),
-            SizedBox(
-              height: 30,
-            ),
-            RoundedButton(
-              text: "POST",
-              color: kBlueColor,
-              press: () => {postpertanyaan()},
-            )
-          ],
+          ),
         ),
       ),
     );

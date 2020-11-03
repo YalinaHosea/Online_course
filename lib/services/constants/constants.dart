@@ -12,11 +12,11 @@ const url_topik = "topik";
 const url_materi = "materi";
 const url_category = "kategori";
 const url_adminpertanyaan = "admin/pertanyaan";
-const url_history = "https://next.json-generator.com/api/json/get/V11OokPXY";
 const url_jawaban = "https://next.json-generator.com/api/json/get/EkA7dYwXF";
 const url_register = "register";
 const url_login = "login";
 const url_pengajar = "pengajar";
+const url_history = "history";
 
 const list_provinsi = [
   "Nanggroe Aceh Darussalam",

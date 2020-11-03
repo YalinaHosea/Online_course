@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:online_course/models/category.dart';
+import 'package:online_course/models/history.dart';
+import 'package:online_course/models/history_request.dart';
 import 'package:online_course/models/materi.dart';
 import 'package:online_course/models/pengajar.dart';
 import 'package:online_course/models/pertanyaan.dart';
@@ -8,6 +10,7 @@ import 'package:online_course/models/register_respon.dart';
 import 'package:online_course/models/registerrequest.dart';
 import 'package:online_course/models/response/login_response.dart';
 import 'package:online_course/models/response/post_pertanyaanrespon.dart';
+import 'package:online_course/models/response/posthistory_response.dart';
 import 'package:online_course/models/topik.dart';
 import 'package:online_course/services/api/provider.dart';
 import 'package:online_course/services/constants/constants.dart';
@@ -34,4 +37,7 @@ class ApiRepository {
       provider.post_pertanyaan(req);
   Future<List<Pertanyaan>> getPertanyaan(String pertanyaan_id) =>
       provider.getPertanyaan(pertanyaan_id);
+  Future<PostHistoryResponse> postHistory(HistoryRequest data) =>
+      provider.postHistory(data);
+  Future<List<History>> getHistory(String id) => provider.getHistory(id);
 }
