@@ -2,7 +2,7 @@ class Category {
   String iDKategori;
   String namaKategori;
   String deskripsi;
-  int aktif;
+  String aktif;
   String foto;
 
   Category(

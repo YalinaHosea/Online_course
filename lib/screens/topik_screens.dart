@@ -4,7 +4,7 @@ import 'package:online_course/services/api/repository.dart';
 import 'package:online_course/services/constants/constants.dart';
 import 'package:online_course/models/category.dart';
 import 'package:online_course/models/topik.dart';
-import 'package:online_course/screens/details_screens.dart';
+import 'package:online_course/screens/materi_screen/details_screens.dart';
 
 class TopikScreen extends StatefulWidget {
   final Category category;
@@ -37,7 +37,8 @@ class _TopikScreenState extends State<TopikScreen> {
                   style: kSubheadingextStyle),
               SizedBox(height: 30),
               FutureBuilder(
-                  future: apiRepository.getTopik(widget.category.iDKategori),
+                  future:
+                      apiRepository.getListTopik(widget.category.iDKategori),
                   builder: (context, snapshot) {
                     if (snapshot.data == null) {
                       return (Container(

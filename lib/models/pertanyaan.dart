@@ -1,16 +1,34 @@
 class Pertanyaan {
-  // ignore: non_constant_identifier_names
-  final int id;
-  // ignore: non_constant_identifier_names
-  final String pertanyaan;
-  final String deskripsi;
-  final String addtime;
+  String pertanyaanId;
+  String pertanyaanIsi;
+  String createdAt;
+  String updatedAt;
+  String iDPenanya;
+  String iDPenjawab;
+  String jawabanIsi;
+  String gambarPertanyaan;
+  String tipe;
 
-  Pertanyaan(this.id, this.pertanyaan, this.deskripsi, this.addtime,);
+  Pertanyaan(item,
+      {this.pertanyaanId,
+      this.pertanyaanIsi,
+      this.createdAt,
+      this.updatedAt,
+      this.iDPenanya,
+      this.iDPenjawab,
+      this.jawabanIsi,
+      this.gambarPertanyaan,
+      this.tipe});
 
-  Pertanyaan.fromJson(Map<String, dynamic> json)
-      : id = int.parse(json['id'].toString()),
-        pertanyaan = json['pertanyaan'],
-        deskripsi = json['deskripsi'],
-        addtime = json['addtime'];
+  Pertanyaan.fromJson(Map<String, dynamic> json) {
+    pertanyaanId = json['pertanyaan_id'];
+    pertanyaanIsi = json['pertanyaan_isi'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    iDPenanya = json['ID_Penanya'];
+    iDPenjawab = json['ID_Penjawab'];
+    jawabanIsi = json['jawaban_isi'];
+    gambarPertanyaan = json['gambar_pertanyaan'];
+    tipe = json['tipe'];
+  }
 }

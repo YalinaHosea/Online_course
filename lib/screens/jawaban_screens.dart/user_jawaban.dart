@@ -18,7 +18,7 @@ class UserPosted_Jawaban extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(50.0),
           child: Image.asset(
-            asset,
+            asset == null ? "assets/images/pengajar3.jpg" : asset,
             height: 40.0,
             width: 40.0,
             fit: BoxFit.cover,
@@ -31,14 +31,14 @@ class UserPosted_Jawaban extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              username,
+              username == null ? "babymudkip" : username,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             SizedBox(
               height: 3,
             ),
             Text(
-              datetime,
+              datetime == null ? "tak ada waktu" : datetime,
               style: TextStyle(
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.italic,

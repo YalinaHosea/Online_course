@@ -46,7 +46,7 @@ class _RegisterScreenState extends State<RegisterScreen> with Validator {
     user.iDUser = username;
     user.nama = nama;
     user.tanggalLahir = tgl_lahir;
-    user.jenisKelamin = kelamin;
+    user.jenisKelamin = kelamin.toString();
     user.alamat = alamat;
     user.provinsi = prov;
     user.nomorTelpon = nohp;

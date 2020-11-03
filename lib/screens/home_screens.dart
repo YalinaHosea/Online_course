@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   SizedBox(height: 10),
                   FutureBuilder(
-                    future: apiRepository.getListKategory,
+                    future: apiRepository.getListkategory,
                     builder: (context, snapshot) {
                       if (snapshot.data == null) {
                         return (Container(

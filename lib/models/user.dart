@@ -1,7 +1,7 @@
 class User {
   String iDUser;
   String nama;
-  int jenisKelamin;
+  String jenisKelamin;
   String tanggalLahir;
   String alamat;
   String provinsi;
@@ -44,7 +44,7 @@ class User {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['"ID_User"'] = '"' + this.iDUser + '"';
     data['"nama"'] = '"' + this.nama + '"';
-    data['"jenis_kelamin"'] = this.jenisKelamin;
+    data['"jenis_kelamin"'] = '"' + this.jenisKelamin + '"';
     data['"tanggal_lahir"'] = '"' + this.tanggalLahir + '"';
     data['"alamat"'] = '"' + this.alamat + '"';
     data['"provinsi"'] = '"' + this.provinsi + '"';

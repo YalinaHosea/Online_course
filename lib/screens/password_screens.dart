@@ -80,7 +80,7 @@ class _PasswordScreenState extends State<PasswordScreen> with Validator {
     String pass = passwordcontroller.text.toString();
     bool error = false;
     RegisterRequest req = new RegisterRequest(widget.user, pass);
-    await apiRepository.register(req).then((value) {
+    await apiRepository.regis(req).then((value) {
       if (value.id_user == null) {
         error = true;
       }

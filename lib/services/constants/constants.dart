@@ -7,16 +7,16 @@ const kGreenColor = Color(0xFF49CC96);
 const kRedColor = Color(0xFFE68C8C);
 const kGrey = Color(0xFFD9D9D9);
 
-const base_url = "https://dutatani.fti.ukdw.ac.id/api/";
-const url_pengajar = "https://next.json-generator.com/api/json/get/VypKq6TbF";
+const base_url = "https://dutatani.id/si_mlearning/public/api/";
 const url_topik = "topik";
-const url_subtopik = "materi";
+const url_materi = "materi";
 const url_category = "kategori";
-const url_pertanyaan = "https://next.json-generator.com/api/json/get/V1bS-ogQY";
+const url_adminpertanyaan = "admin/pertanyaan";
 const url_history = "https://next.json-generator.com/api/json/get/V11OokPXY";
 const url_jawaban = "https://next.json-generator.com/api/json/get/EkA7dYwXF";
-const url_register = "https://next.json-generator.com/api/json/get/415fOyw7t";
+const url_register = "register";
 const url_login = "login";
+const url_pengajar = "pengajar";
 
 const list_provinsi = [
   "Nanggroe Aceh Darussalam",

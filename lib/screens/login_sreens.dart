@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:online_course/Component/loading_dialog.dart';
 import 'package:online_course/models/response/login_response.dart';
 import 'package:online_course/services/api/repository.dart';
 import 'package:online_course/services/constants/constants.dart';
@@ -15,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   ApiRepository apiRepository = new ApiRepository();
   signIn(String email, password) async {
+    showAlertDialog(context, "Login ...");
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     LoginResponse response = await apiRepository.login(email, password);
@@ -25,6 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
           context,
           MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),
           (route) => false);
+    } else {
+      Navigator.pop(context);
+      showResponse(
+          context, response.result.resultmessage, () => Navigator.pop(context));
     }
   }
 
