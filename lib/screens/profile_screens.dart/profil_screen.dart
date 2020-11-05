@@ -158,6 +158,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         MaterialPageRoute(
                             builder: (_) => TambahPertanyaan(
                                   title: "Pusat Bantuan",
+                                  tipe: 2,
                                 )));
                   },
                   child: Row(

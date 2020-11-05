@@ -212,7 +212,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                               function_pdf: () =>
                                                                   posthistory(
                                                                       item,
-                                                                      item.link_pdf),
+                                                                      url_pdf +
+                                                                          item.dokumen),
                                                             ),
                                                             SizedBox(
                                                               height: 50,
@@ -252,6 +253,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             MaterialPageRoute(
                                 builder: (_) => TambahPertanyaan(
                                       title: "Tanya Fasilitator",
+                                      tipe: 1,
                                     )));
                       },
                       child: Text(

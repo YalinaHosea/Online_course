@@ -51,7 +51,7 @@ class _FasilitatorFragmentState extends State<FasilitatorFragment> {
                     );
                   } else {
                     return FutureBuilder(
-                        future: apiRepository.getPertanyaan(user.iDUser),
+                        future: apiRepository.getPertanyaan(user.iDUser, 1),
                         builder: (context, snapshot) {
                           if (snapshot.data == null) {
                             return Container(
@@ -83,10 +83,14 @@ class _FasilitatorFragmentState extends State<FasilitatorFragment> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text(
-                                              per.pertanyaanIsi,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                            Container(
+                                              width: 250,
+                                              child: Text(
+                                                per.pertanyaanIsi,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
                                             new Spacer(),
                                             SvgPicture.asset(

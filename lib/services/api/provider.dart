@@ -96,14 +96,16 @@ class ApiProvider {
     }
   }
 
-  Future<List<Pertanyaan>> getPertanyaan(String pertanyaan_id) async {
+  Future<List<Pertanyaan>> getPertanyaan(String user_id, int tipe) async {
     Response response =
-        await dio.get(url_adminpertanyaan + "/index/" + pertanyaan_id);
+        await dio.get(url_adminpertanyaan + "/index/" + user_id);
     List<Pertanyaan> pertanyaans = [];
     if (response.statusCode == 200) {
       for (var item in response.data["pertanyaan"]) {
         Pertanyaan pertanyaan = Pertanyaan.fromJson(item);
-        pertanyaans.add(pertanyaan);
+        if (pertanyaan.tipe == tipe.toString()) {
+          pertanyaans.add(pertanyaan);
+        }
       }
       return pertanyaans;
     } else {

@@ -35,8 +35,8 @@ class ApiRepository {
   Future<RegisterResponse> regis(RegisterRequest req) => provider.regis(req);
   Future<PostPertanyaanResponse> post_pertanyaan(PertanyaanRequest req) =>
       provider.post_pertanyaan(req);
-  Future<List<Pertanyaan>> getPertanyaan(String pertanyaan_id) =>
-      provider.getPertanyaan(pertanyaan_id);
+  Future<List<Pertanyaan>> getPertanyaan(String user_id, int tipe) =>
+      provider.getPertanyaan(user_id, tipe);
   Future<PostHistoryResponse> postHistory(HistoryRequest data) =>
       provider.postHistory(data);
   Future<List<History>> getHistory(String id) => provider.getHistory(id);

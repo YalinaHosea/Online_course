@@ -15,8 +15,9 @@ import 'package:online_course/services/validator/validator.dart';
 
 class TambahPertanyaan extends StatefulWidget {
   final String title;
+  final int tipe;
 
-  const TambahPertanyaan({Key key, this.title}) : super(key: key);
+  const TambahPertanyaan({Key key, this.title, this.tipe}) : super(key: key);
   @override
   _TambahPertanyaanState createState() => _TambahPertanyaanState();
 }
@@ -54,8 +55,8 @@ class _TambahPertanyaanState extends State<TambahPertanyaan> with Validator {
     String pertanyaan = pertanyaancontroller.text.toString();
     bool error = false;
 
-    PertanyaanRequest pertanyaan_req =
-        new PertanyaanRequest(user.iDUser, pertanyaan, imagepicked, 1);
+    PertanyaanRequest pertanyaan_req = new PertanyaanRequest(
+        user.iDUser, pertanyaan, imagepicked, widget.tipe);
     await apiRepository.post_pertanyaan(pertanyaan_req).then((value) {
       if (value.result.resultcode == -9) {
         error = true;

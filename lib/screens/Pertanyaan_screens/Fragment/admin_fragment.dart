@@ -51,7 +51,7 @@ class _FragmentAdminState extends State<AdminFragment> {
                     );
                   } else {
                     return FutureBuilder(
-                        future: apiRepository.getPertanyaan(user.iDUser),
+                        future: apiRepository.getPertanyaan(user.iDUser, 2),
                         builder: (context, snapshot) {
                           if (snapshot.data == null) {
                             return Container(
@@ -60,7 +60,7 @@ class _FragmentAdminState extends State<AdminFragment> {
                               ),
                             );
                           } else {
-                            return ListView.separated(
+                            return (ListView.separated(
                                 separatorBuilder: (context, index) => SizedBox(
                                       height: 25,
                                     ),
@@ -83,10 +83,14 @@ class _FragmentAdminState extends State<AdminFragment> {
                                       children: [
                                         Row(
                                           children: [
-                                            Text(
-                                              per.pertanyaanIsi,
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold),
+                                            Container(
+                                              width: 250,
+                                              child: Text(
+                                                per.pertanyaanIsi,
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
                                             ),
                                             new Spacer(),
                                             SvgPicture.asset(
@@ -99,24 +103,18 @@ class _FragmentAdminState extends State<AdminFragment> {
                                         SizedBox(
                                           height: 5,
                                         ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.8,
-                                          child: Text(
-                                            per.createdAt,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w300,
-                                                fontStyle: FontStyle.italic,
-                                                color: Colors.black45,
-                                                fontSize: 12),
-                                          ),
+                                        Text(
+                                          per.createdAt,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w300,
+                                              fontStyle: FontStyle.italic,
+                                              color: Colors.black45,
+                                              fontSize: 12),
                                         )
                                       ],
                                     ),
                                   );
-                                });
+                                }));
                           }
                         });
                   }
