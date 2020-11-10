@@ -12,6 +12,6 @@ class Topik {
     iDUser = json['ID_User'];
     iDKategori = json['ID_Kategori'];
     topik = json['Topik'];
-    foto = "assets/images/rugicangkok.jpg";
+    foto = json['input_img'];
   }
 }

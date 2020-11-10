@@ -168,14 +168,57 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   builder: (_) => TopikScreen(
                                                         category: cat,
                                                       ))),
-                                          child: Container(
-                                            height: index.isEven ? 200 : 240,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              image: DecorationImage(
-                                                image: AssetImage(cat.foto),
-                                                fit: BoxFit.cover,
+                                          child: CachedNetworkImage(
+                                            imageUrl: url_gambar + data.foto,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Container(
+                                              padding: EdgeInsets.all(15),
+                                              height: index.isEven ? 200 : 240,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                            placeholder: (context, url) =>
+                                                Container(
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      new AlwaysStoppedAnimation<
+                                                          Color>(kBlueColor),
+                                                ),
+                                              ),
+                                              padding: EdgeInsets.all(15),
+                                              height: index.isEven ? 200 : 240,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(8.0),
+                                                ),
+                                              ),
+                                            ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    Container(
+                                              child: Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  valueColor:
+                                                      new AlwaysStoppedAnimation<
+                                                          Color>(kBlueColor),
+                                                ),
+                                              ),
+                                              padding: EdgeInsets.all(15),
+                                              height: index.isEven ? 200 : 240,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.all(
+                                                  Radius.circular(8.0),
+                                                ),
                                               ),
                                             ),
                                           ),

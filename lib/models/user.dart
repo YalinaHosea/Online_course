@@ -38,7 +38,7 @@ class User {
     kelurahanDesa = json['kelurahan_desa'];
     nomorTelpon = json['nomor_telpon'];
     email = json['Email'];
-    foto = "assets/images/user.png";
+    foto = "assets/images/user_placehorder.png";
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

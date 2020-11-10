@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:online_course/models/pertanyaan.dart';
-import 'package:online_course/services/constants/constants.dart';
-import 'package:online_course/models/jawaban.dart';
 import 'package:online_course/models/user.dart';
 import 'package:online_course/screens/jawaban_screens.dart/user_jawaban.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,16 +9,15 @@ class JawabanScreen extends StatefulWidget {
   final Pertanyaan pertanyaan;
 
   const JawabanScreen({Key key, this.pertanyaan}) : super(key: key);
-
   @override
   _JawabanScreenState createState() => _JawabanScreenState();
 }
 
 class _JawabanScreenState extends State<JawabanScreen> {
   SharedPreferences sharedPreferences;
+  User user;
 
   Future<User> loaduser() async {
-    User user;
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("user") != null) {
       var json = sharedPreferences.getString("user");
@@ -56,8 +52,8 @@ class _JawabanScreenState extends State<JawabanScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     UserPosted_Jawaban(
-                      username: snapshot.data.nama,
-                      asset: snapshot.data.foto,
+                      username: user.nama,
+                      asset: user.foto,
                       datetime: widget.pertanyaan.createdAt,
                     ),
                     SizedBox(
@@ -95,19 +91,29 @@ class _JawabanScreenState extends State<JawabanScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    UserPosted_Jawaban(
-                      username: widget.pertanyaan.iDPenjawab,
-                      // asset: widget.pertanyaan.foto,
-                      datetime: widget.pertanyaan.updatedAt,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                        widget.pertanyaan.jawabanIsi == null
-                            ? "dutatani"
-                            : widget.pertanyaan.jawabanIsi,
-                        style: TextStyle(color: Colors.black54)),
+                    widget.pertanyaan.jawabanIsi == null
+                        ? Center(
+                            child: Text(
+                              "Belum ada jawaban",
+                              style: TextStyle(
+                                  color: Colors.grey,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          )
+                        : Column(
+                            children: [
+                              UserPosted_Jawaban(
+                                username: widget.pertanyaan.iDPenjawab,
+                                datetime: widget.pertanyaan.updatedAt,
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(widget.pertanyaan.jawabanIsi,
+                                  style: TextStyle(color: Colors.black54)),
+                            ],
+                          )
                   ],
                 )),
               );

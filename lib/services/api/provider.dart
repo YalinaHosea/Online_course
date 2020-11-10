@@ -195,7 +195,7 @@ class ApiProvider {
   Future<RegisterResponse> regis(RegisterRequest req) async {
     var data = req.toJson();
     Response response = await dio.post(
-      "register",
+      url_register,
       data: data,
       options: Options(
         followRedirects: false,

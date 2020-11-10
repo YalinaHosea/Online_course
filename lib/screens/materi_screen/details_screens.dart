@@ -207,8 +207,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                               function_video: () =>
                                                                   posthistory(
                                                                       item,
-                                                                      "https://www.youtube.com/watch?v=" +
-                                                                          item.link_video),
+                                                                      item.link_video),
                                                               function_pdf: () =>
                                                                   posthistory(
                                                                       item,

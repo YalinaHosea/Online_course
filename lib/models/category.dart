@@ -17,7 +17,7 @@ class Category {
     namaKategori = json['Nama_Kategori'];
     deskripsi = json['Deskripsi'];
     aktif = json['aktif'];
-    foto = "assets/images/menanam.jpeg";
+    foto = json['nama'];
   }
 
   // Map<String, dynamic> toJson() {
