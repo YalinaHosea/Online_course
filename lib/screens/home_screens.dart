@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -169,7 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         category: cat,
                                                       ))),
                                           child: CachedNetworkImage(
-                                            imageUrl: url_gambar + data.foto,
+                                            imageUrl:
+                                                url_gambar_kategori + cat.foto,
                                             imageBuilder:
                                                 (context, imageProvider) =>
                                                     Container(

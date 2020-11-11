@@ -111,14 +111,15 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     ),
                     Text(
                       "History",
-                      style: kTitleTextStyle,
+                      style: kTitleTextStyle.copyWith(
+                          fontWeight: FontWeight.w500, fontSize: 17),
                     )
                   ],
                 ),
               ),
             ),
             SizedBox(
-              height: 10.0,
+              height: 15.0,
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -142,12 +143,13 @@ class _ProfilScreenState extends State<ProfilScreen> {
                         ),
                         Text(
                           "Pertanyaan Saya",
-                          style: kTitleTextStyle,
+                          style: kTitleTextStyle.copyWith(
+                              fontWeight: FontWeight.w500, fontSize: 17),
                         )
                       ],
                     ))),
             SizedBox(
-              height: 10.0,
+              height: 15.0,
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -174,13 +176,14 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       ),
                       Text(
                         "Pusat Bantuan",
-                        style: kTitleTextStyle,
+                        style: kTitleTextStyle.copyWith(
+                            fontWeight: FontWeight.w500, fontSize: 17),
                       )
                     ],
                   ),
                 )),
             SizedBox(
-              height: 10.0,
+              height: 15.0,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18.0),

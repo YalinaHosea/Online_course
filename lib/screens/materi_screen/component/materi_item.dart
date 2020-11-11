@@ -20,12 +20,16 @@ class MateriItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Text(
-              subs.nama_materi,
-              style: kTitleTextStyle.copyWith(fontSize: 18.0),
+            Container(
+              width: 300,
+              child: Text(
+                subs.nama_materi,
+                style: kTitleTextStyle.copyWith(fontSize: 18.0),
+              ),
             ),
             new Spacer(),
             GestureDetector(

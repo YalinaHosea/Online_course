@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:online_course/services/api/repository.dart';
@@ -39,7 +40,7 @@ class _TopikScreenState extends State<TopikScreen> {
               FutureBuilder(
                   future:
                       apiRepository.getListTopik(widget.category.iDKategori),
-                  builder: (context, snapshot) {
+                  builder: (context, AsyncSnapshot<List<Topik>> snapshot) {
                     if (snapshot.data == null) {
                       return (Container(
                         child: Center(
@@ -53,40 +54,81 @@ class _TopikScreenState extends State<TopikScreen> {
                               mainAxisSpacing: 20.0,
                               crossAxisSpacing: 20.0,
                               children: snapshot.data.map<Widget>((item) {
+                                var image = item.foto;
+                                if (image == null) {
+                                  image = "";
+                                }
                                 return Stack(
                                   children: <Widget>[
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20.0)),
-                                      child: ShaderMask(
-                                        shaderCallback: (rect) {
-                                          return LinearGradient(
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Colors.transparent,
-                                              Colors.black
-                                            ],
-                                          ).createShader(Rect.fromLTRB(
-                                              0, 30, rect.width, rect.height));
-                                        },
-                                        blendMode: BlendMode.darken,
-                                        child: GestureDetector(
-                                            onTap: () => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        DetailsScreen(
-                                                          topik: item,
-                                                        ))),
-                                            child: Container(
-                                              height: 200,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                image: DecorationImage(
-                                                  image: AssetImage(item.foto),
-                                                  fit: BoxFit.cover,
+                                    GestureDetector(
+                                      onTap: () => Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => DetailsScreen(
+                                                    topik: item,
+                                                  ))),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20.0)),
+                                        child: ShaderMask(
+                                            shaderCallback: (rect) {
+                                              return LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Colors.transparent,
+                                                  Colors.black
+                                                ],
+                                              ).createShader(Rect.fromLTRB(0,
+                                                  30, rect.width, rect.height));
+                                            },
+                                            blendMode: BlendMode.darken,
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  url_gambar_topik + image,
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                padding: EdgeInsets.all(15),
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  Container(
+                                                child: Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        new AlwaysStoppedAnimation<
+                                                            Color>(kBlueColor),
+                                                  ),
+                                                ),
+                                                padding: EdgeInsets.all(15),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(8.0),
+                                                  ),
+                                                ),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  image: DecorationImage(
+                                                    image: AssetImage(
+                                                        "assets/images/cancel.png"),
+                                                    fit: BoxFit.contain,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                    Radius.circular(8.0),
+                                                  ),
                                                 ),
                                               ),
                                             )),

@@ -117,10 +117,14 @@ class ApiProvider {
     PostPertanyaanResponse respon;
     Result err_result = new Result(-9, 'Terjadi Kesalahan');
     // var data = req.toJson();
+    String fileName = req.gambar_pertanyaan.path.split('/').last;
     FormData formData = FormData.fromMap({
       "ID_Penanya": req.iD_Penanya,
       "pertanyaan_isi": req.pertanyaan_isi,
-      "gambar_pertanyaan": req.gambar_pertanyaan,
+      "gambar_pertanyaan": await MultipartFile.fromFile(
+          req.gambar_pertanyaan.path,
+          filename: fileName),
+      "ID_Penjawab": "",
       "tipe": req.tipe
     });
     try {
