@@ -18,12 +18,35 @@ class ProfilScreen extends StatefulWidget {
 }
 
 class _ProfilScreenState extends State<ProfilScreen> {
+  User userscreen;
   signout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.clear();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
         (Route<dynamic> route) => false);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    userscreen = widget.user;
+  }
+
+  navigatetoeditprofile() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => EditProfil(
+                  user: userscreen,
+                ))).then((value) {
+      if (value != null) {
+        setState(() {
+          userscreen = value;
+        });
+      }
+    });
   }
 
   @override
@@ -66,9 +89,7 @@ class _ProfilScreenState extends State<ProfilScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => EditProfil(
-                                    user: widget.user,
-                                  )));
+                              builder: (_) => navigatetoeditprofile()));
                     },
                     child: Icon(
                       Icons.edit,
