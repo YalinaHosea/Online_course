@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,24 +19,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   SharedPreferences sharedPreferences;
-  User user;
+  Future<User> user;
   ApiRepository apiRepository = new ApiRepository();
 
   @override
   void initState() {
     super.initState();
+    user = checkloginstatus();
+  }
 
-    // initial load
-    //   user = checkloginstatus();
-    // }
-
-    // void refreshuser() {
-    //   setState(() {
-    //     user = checkloginstatus();
-    //   });
+  void refreshuser() {
+    setState(() {
+      user = checkloginstatus();
+    });
   }
 
   Future<User> checkloginstatus() async {
+    User usercheck;
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("user") == null) {
       Navigator.of(context).pushAndRemoveUntil(
@@ -46,9 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
     } else {
       var jsonstring = sharedPreferences.getString("user");
       var json = jsonDecode(jsonstring);
-      user = User.fromJson(json);
+      usercheck = User.fromJson(json);
     }
-    return user;
+    return usercheck;
   }
 
   @override
@@ -57,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: EdgeInsets.only(left: 20, top: 50, right: 20),
         child: FutureBuilder(
-          future: checkloginstatus(),
+          future: user(),
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return (Container(
