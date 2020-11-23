@@ -56,4 +56,23 @@ class User {
     data['"Foto"'] = '"' + this.foto + '"';
     return data;
   }
+
+  Map<String, dynamic> toJsonEditProfile() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['ID_User'] = iDUser;
+    data['nama'] = nama;
+    data['jenis_kelamin'] = jenisKelamin;
+    data['tanggal_lahir'] = tanggalLahir;
+    data['alamat'] = alamat;
+    data['provinsi'] = provinsi;
+    data['nomor_telpon'] = nomorTelpon;
+    data['Email'] = email;
+    return data;
+  }
+
+  @override
+  String toString() {
+    // TODO: implement toString
+    return "ID : " + iDUser;
+  }
 }

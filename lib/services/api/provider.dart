@@ -8,11 +8,13 @@ import 'package:online_course/models/pertanyaan.dart';
 import 'package:online_course/models/pertanyaanrequest.dart';
 import 'package:online_course/models/register_respon.dart';
 import 'package:online_course/models/registerrequest.dart';
+import 'package:online_course/models/response/EditProfileResponse.dart';
 import 'package:online_course/models/response/login_response.dart';
 import 'package:online_course/models/response/post_pertanyaanrespon.dart';
 import 'package:online_course/models/response/posthistory_response.dart';
 import 'package:online_course/models/result.dart';
 import 'package:online_course/models/topik.dart';
+import 'package:online_course/models/user.dart';
 import 'package:online_course/services/constants/constants.dart';
 
 class ApiProvider {
@@ -59,6 +61,36 @@ class ApiProvider {
       Result result = new Result(-9, response.data["Result"]["ResultMessage"]);
       LoginResponse login = new LoginResponse(result: result);
       return login;
+    }
+  }
+
+  Future<EditProfileResponse> editprofile(User req) async {
+    var data = req.toJsonEditProfile();
+    try {
+      Response response = await dio.post(
+        url_editprofile,
+        data: data,
+        options: Options(
+          followRedirects: false,
+          validateStatus: (status) {
+            return status < 500;
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        EditProfileResponse respon =
+            EditProfileResponse.fromJson(response.data);
+        return respon;
+      } else {
+        Result result =
+            new Result(-9, response.data["Result"]["ResultMessage"]);
+        EditProfileResponse respon = new EditProfileResponse(result: result);
+        return respon;
+      }
+    } on DioError catch (e) {
+      Result result = new Result(-9, "Gagal mengubah profile");
+      EditProfileResponse respon = new EditProfileResponse(result: result);
+      return respon;
     }
   }
 
@@ -176,8 +208,8 @@ class ApiProvider {
       for (var item in response.data["ListMateri"]) {
         Materi sub = Materi.fromJson(item);
         subtopiks.add(sub);
-        return subtopiks;
       }
+      return subtopiks;
     } else {
       return null;
     }

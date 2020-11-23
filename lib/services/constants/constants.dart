@@ -20,6 +20,7 @@ const url_history = api + "history";
 const url_pdf = base_url + "materipengajar/";
 const url_gambar_kategori = base_url + "gambar_kategori/";
 const url_gambar_topik = base_url + "fototopik/";
+const url_editprofile = api + "editprofile/";
 
 const list_provinsi = [
   "Nanggroe Aceh Darussalam",

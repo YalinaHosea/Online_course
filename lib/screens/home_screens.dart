@@ -23,6 +23,20 @@ class _HomeScreenState extends State<HomeScreen> {
   User user;
   ApiRepository apiRepository = new ApiRepository();
 
+  @override
+  void initState() {
+    super.initState();
+
+    // initial load
+    //   user = checkloginstatus();
+    // }
+
+    // void refreshuser() {
+    //   setState(() {
+    //     user = checkloginstatus();
+    //   });
+  }
+
   Future<User> checkloginstatus() async {
     sharedPreferences = await SharedPreferences.getInstance();
     if (sharedPreferences.getString("user") == null) {

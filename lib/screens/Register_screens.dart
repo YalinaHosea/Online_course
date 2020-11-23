@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:online_course/Component/text_input.dart';
 import 'package:online_course/Component/underline_textbox.dart';
 import 'package:online_course/models/user.dart';
 import 'package:online_course/screens/password_screens.dart';
@@ -271,34 +272,5 @@ class _RegisterScreenState extends State<RegisterScreen> with Validator {
             ),
           ),
         ));
-  }
-}
-
-class Txtinput extends StatelessWidget {
-  const Txtinput({
-    Key key,
-    @required this.controller,
-    this.label,
-    this.validator,
-  }) : super(key: key);
-
-  final TextEditingController controller;
-  final String label;
-  final String Function(String) validator;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(0),
-          labelText: label,
-          labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: kGrey),
-          ),
-          focusedBorder:
-              UnderlineInputBorder(borderSide: BorderSide(color: kBlueColor))),
-    );
   }
 }

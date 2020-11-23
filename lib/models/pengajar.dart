@@ -44,5 +44,5 @@ class Pengajar {
         kelurahan = json['kelurahan_desa'],
         no_hp = json['nomor_telpon'],
         email = json['Email'],
-        foto = "assets/images/pengajar3.jpg";
+        foto = "assets/images/user_placehorder.png";
 }

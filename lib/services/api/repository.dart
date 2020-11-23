@@ -8,10 +8,12 @@ import 'package:online_course/models/pertanyaan.dart';
 import 'package:online_course/models/pertanyaanrequest.dart';
 import 'package:online_course/models/register_respon.dart';
 import 'package:online_course/models/registerrequest.dart';
+import 'package:online_course/models/response/EditProfileResponse.dart';
 import 'package:online_course/models/response/login_response.dart';
 import 'package:online_course/models/response/post_pertanyaanrespon.dart';
 import 'package:online_course/models/response/posthistory_response.dart';
 import 'package:online_course/models/topik.dart';
+import 'package:online_course/models/user.dart';
 import 'package:online_course/services/api/provider.dart';
 import 'package:online_course/services/constants/constants.dart';
 
@@ -40,4 +42,6 @@ class ApiRepository {
   Future<PostHistoryResponse> postHistory(HistoryRequest data) =>
       provider.postHistory(data);
   Future<List<History>> getHistory(String id) => provider.getHistory(id);
+  Future<EditProfileResponse> editprofile(User req) =>
+      provider.editprofile(req);
 }
