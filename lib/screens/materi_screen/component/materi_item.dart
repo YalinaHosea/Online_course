@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:online_course/models/materi.dart';
 import 'package:online_course/services/constants/constants.dart';
 import 'package:social_share/social_share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MateriItem extends StatelessWidget {
   const MateriItem({
@@ -15,6 +16,14 @@ class MateriItem extends StatelessWidget {
   final Materi subs;
   final Function function_video;
   final Function function_pdf;
+
+  redirectURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +42,9 @@ class MateriItem extends StatelessWidget {
             ),
             new Spacer(),
             GestureDetector(
-              onTap: () => SocialShare.shareWhatsapp(subs.link_video),
+              onTap: () {
+                redirectURL("https://dutatani.id/si_mlearning/public/");
+              },
               child: Icon(
                 Icons.share,
                 color: kBlueColor,

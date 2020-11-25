@@ -80,16 +80,13 @@ class _ProfilScreenState extends State<ProfilScreen> {
                     width: 10.0,
                   ),
                   Text(
-                    widget.user.nama,
+                    userscreen.nama,
                     style: kHeadingxSTyle.copyWith(fontSize: 20.0),
                   ),
                   new Spacer(),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => navigatetoeditprofile()));
+                      navigatetoeditprofile();
                     },
                     child: Icon(
                       Icons.edit,

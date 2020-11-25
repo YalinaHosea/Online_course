@@ -81,46 +81,48 @@ class _HistoryscreenState extends State<Historyscreen> {
                                 itemBuilder: (context, index) {
                                   History per = snapshot.data[index];
                                   return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: 300,
-                                            child: Text(
-                                              per.namaMateri,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.bold,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: 300,
+                                              child: Text(
+                                                per.namaMateri,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          new Spacer(),
-                                          SvgPicture.asset(
-                                            "assets/icons/more.svg",
-                                            height: 12,
-                                            width: 12,
-                                          )
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.8,
-                                        child: Text(
-                                          per.createAt,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w300,
-                                              fontStyle: FontStyle.italic,
-                                              color: Colors.black45,
-                                              fontSize: 12),
-                                        ),
-                                      )
-                                    ],
-                                  );
+                                            new Spacer(),
+                                            //     SvgPicture.asset(
+                                            //       "assets/icons/more.svg",
+                                            //       height: 12,
+                                            //       width: 12,
+                                            //     )
+                                            //   ],
+                                            // ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.8,
+                                              child: Text(
+                                                per.createAt,
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w300,
+                                                    fontStyle: FontStyle.italic,
+                                                    color: Colors.black45,
+                                                    fontSize: 12),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ]);
                                 });
                           }
                         });

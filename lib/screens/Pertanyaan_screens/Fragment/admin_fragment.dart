@@ -93,11 +93,11 @@ class _FragmentAdminState extends State<AdminFragment> {
                                               ),
                                             ),
                                             new Spacer(),
-                                            SvgPicture.asset(
-                                              "assets/icons/more.svg",
-                                              height: 12,
-                                              width: 12,
-                                            )
+                                            // SvgPicture.asset(
+                                            //   "assets/icons/more.svg",
+                                            //   height: 12,
+                                            //   width: 12,
+                                            // )
                                           ],
                                         ),
                                         SizedBox(

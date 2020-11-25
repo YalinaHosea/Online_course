@@ -20,7 +20,7 @@ class _EditProfilState extends State<EditProfil> with Validator {
   final formkey = GlobalKey<FormState>();
   DateFormat dateFormat = new DateFormat("dd MMMM yyyy");
   DateFormat datepost = new DateFormat("yyyy-MM-dd");
-  final TextEditingController usercontroller = new TextEditingController();
+  // final TextEditingController usercontroller = new TextEditingController();
   final TextEditingController namacontroller = new TextEditingController();
   final TextEditingController emailcontroller = new TextEditingController();
   final TextEditingController alamatcontroller = new TextEditingController();
@@ -36,7 +36,7 @@ class _EditProfilState extends State<EditProfil> with Validator {
   void initState() {
     // TODO: implement initState
     super.initState();
-    usercontroller.text = widget.user.iDUser;
+    // usercontroller.text = widget.user.iDUser;
     namacontroller.text = widget.user.nama;
     emailcontroller.text = widget.user.email;
     alamatcontroller.text = widget.user.alamat;
@@ -59,7 +59,7 @@ class _EditProfilState extends State<EditProfil> with Validator {
   editprofile() async {
     showAlertDialog(context, "Ubah profile ... ");
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String username = usercontroller.text.toString();
+    String username = widget.user.iDUser;
     String nama = namacontroller.text.toString();
     String tgl_lahir = datepost.format(tanggal);
     int kelamin = jk;
@@ -69,7 +69,7 @@ class _EditProfilState extends State<EditProfil> with Validator {
     String email = emailcontroller.text.toString();
     bool error = false;
     User user = new User();
-    user.iDUser = username;
+    // user.iDUser = username;
     user.nama = nama;
     user.tanggalLahir = tgl_lahir;
     user.jenisKelamin = kelamin.toString();
@@ -139,11 +139,11 @@ class _EditProfilState extends State<EditProfil> with Validator {
                         ),
                       ),
                       SizedBox(height: 30),
-                      Txtinput(
-                        controller: usercontroller,
-                        label: "Username",
-                        validator: validateempty,
-                      ),
+                      // Txtinput(
+                      //   controller: usercontroller,
+                      //   label: "Username",
+                      //   validator: validateempty,
+                      // ),
                       SizedBox(height: 20),
                       Txtinput(
                         controller: namacontroller,

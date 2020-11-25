@@ -58,8 +58,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
     await apiRepository.postHistory(historyRequest).then((value) {
       if (value == null) {
         error = true;
-        showResponse(
-            context, "Terjadi kesalahan", () => Navigator.pop(context));
+        showResponse(context, "Terjadi kesalahan", () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        });
       } else {
         Navigator.pop(context);
         redirectURL(url);

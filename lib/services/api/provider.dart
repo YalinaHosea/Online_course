@@ -110,20 +110,24 @@ class ApiProvider {
 
   Future<PostHistoryResponse> postHistory(HistoryRequest data_history) async {
     var data = data_history.toJson();
-    Response response = await dio.post(
-      url_history,
-      data: data,
-      options: Options(
-        followRedirects: false,
-        validateStatus: (status) {
-          return status < 500;
-        },
-      ),
-    );
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      PostHistoryResponse his = PostHistoryResponse.fromJson(response.data);
-      return his;
-    } else {
+    try {
+      Response response = await dio.post(
+        url_history,
+        data: data,
+        options: Options(
+          followRedirects: false,
+          // validateStatus: (status) {
+          //   return status < 500;
+          // },
+        ),
+      );
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        PostHistoryResponse his = PostHistoryResponse.fromJson(response.data);
+        return his;
+      } else {
+        return null;
+      }
+    } on DioError catch (e) {
       return null;
     }
   }

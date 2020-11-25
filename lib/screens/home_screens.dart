@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: EdgeInsets.only(left: 20, top: 50, right: 20),
         child: FutureBuilder(
-          future: user(),
+          future: user,
           builder: (context, snapshot) {
             if (snapshot.data == null) {
               return (Container(
@@ -86,14 +86,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => ProfilScreen(
-                                      user: user,
-                                    ))),
+                         onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => ProfilScreen(
+                                          user: snapshot.data,
+                                        ))).then((_) {
+                              refreshuser();
+                            });
+                          },
                         child: CircleAvatar(
-                          backgroundImage: AssetImage(user.foto),
+                          backgroundImage: AssetImage(snapshot.data.foto),
                         ),
                       )
                     ],
@@ -101,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(
                     height: 30,
                   ),
-                  Text("Hello, " + user.nama, style: kHeadingxSTyle),
+                  Text("Hello, " + snapshot.data.nama, style: kHeadingxSTyle),
                   Text("Temukan tips terbaik untuk bertani",
                       style: kSubheadingextStyle.copyWith(fontSize: 20)),
                   Container(
