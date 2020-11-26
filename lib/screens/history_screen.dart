@@ -87,7 +87,7 @@ class _HistoryscreenState extends State<Historyscreen> {
                                         Row(
                                           children: [
                                             Container(
-                                              width: 300,
+                                              width: 150,
                                               child: Text(
                                                 per.namaMateri,
                                                 style: TextStyle(

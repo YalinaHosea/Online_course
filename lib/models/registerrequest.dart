@@ -16,7 +16,7 @@ class RegisterRequest {
     data['provinsi'] = this.user.provinsi;
     data['nomor_telpon'] = this.user.nomorTelpon;
     data['Email'] = this.user.email;
-    data['password'] = this.password;
+    data['Password'] = this.password;
     return data;
   }
 }

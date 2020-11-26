@@ -43,7 +43,8 @@ class MateriItem extends StatelessWidget {
             new Spacer(),
             GestureDetector(
               onTap: () {
-                redirectURL("https://dutatani.id/si_mlearning/public/");
+                redirectURL("https://dutatani.id/si_mlearning/public/" +
+                    subs.id.toString());
               },
               child: Icon(
                 Icons.share,

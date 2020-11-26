@@ -98,7 +98,7 @@ class ApiProvider {
     Response response = await dio.get(url_history + "/" + id);
     List<History> historys = [];
     if (response.statusCode == 200) {
-      for (var item in response.data["pertanyaan"]) {
+      for (var item in response.data["showhistory"]) {
         History history = History.fromJson(item);
         historys.add(history);
       }
